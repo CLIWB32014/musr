@@ -6,7 +6,7 @@ var search_verify = 0;
 var timecache = 1000*60*3;
 function search(settings) {
     $('.results .search_result').remove();
-    $('.results').animate({height:'toggle'},100,ArrangeEls);
+    $('.results').hide();
     DestroyArrange();
     search_count=0;
     search_verify=0;
@@ -50,7 +50,18 @@ function search(settings) {
         googleSearch(settings);
         }
     });
-
+    //Google PLus
+    var query = {"userID":userDeploydId,"type":"googlePlus","search":settings.searchTerm,"timestamp":{"$gt": Date.now()-timecache}};
+    dpd.cache.get(query, function (result) {
+      if (result.length>0)
+        {
+        googlePlusSearchResults(result[0].data);
+        }
+        else
+        {
+        googlePlusSearch(settings);
+        }
+    });
     //googlePlusSearch(settings);
    // googleMapsSearch(settings);
    // facebookSearch(settings);
@@ -200,19 +211,24 @@ function googlePlusSearch(settings) {
     });
 
     request.execute(function(response) {
-        var numItems = response.items.length;
-        for (var i = 0; i < numItems; i++) {
-
-            var resultType = 'google';
-            var title = response.items[i].actor.displayName;
-            var content = response.items[i].object;
-            var url = response.items[i].url;
-            var source = 'google';
-
-            createResult(resultType, title, content, url, source);
-         }
-            search_count++;
+        dpd.cache.post({"userID":userDeploydId,"type":"googlePlus","search":settings.searchTerm,"data":response.items,"timestamp":Date.now()}, function(result, err) {});
+        googlePlusSearchResults(response.items);
     });
+}
+
+function googlePlusSearchResults(response) {
+    var numItems = response.length;
+    for (var i = 0; i < numItems; i++) {
+
+        var resultType = 'google';
+        var title = response[i].actor.displayName;
+        var content = response[i].object;
+        var url = response[i].url;
+        var source = 'google';
+
+        createResult(resultType, title, content, url, source);
+     }
+        search_count++;
 }
 
 function facebookSearch(settings) {
