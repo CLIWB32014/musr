@@ -1,0 +1,45 @@
+{
+	"type": "Collection",
+	"properties": {
+		"userID": {
+			"name": "userID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "userID",
+			"order": 0
+		},
+		"type": {
+			"name": "type",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "type",
+			"order": 1
+		},
+		"search": {
+			"name": "search",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "search",
+			"order": 2
+		},
+		"data": {
+			"name": "data",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "data",
+			"order": 3
+		},
+		"timestamp": {
+			"name": "timestamp",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "timestamp",
+			"order": 4
+		}
+	}
+}

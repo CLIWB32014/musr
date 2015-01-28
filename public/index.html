@@ -8,6 +8,8 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/socicon.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,11 +19,195 @@
     <![endif]-->
   </head>
   <body>
-    <button type="button" class="btn btn-lg btn-default">Hello World</button>
+  <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '381323792034122',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+  };
 
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+  <div class="container-full">
+
+    <div class="row header">
+        <div class="col-md-1">
+            <span class="glyphicon glyphicon-user user_img"></span>
+            <!-- Button to launch modal popover -->
+            <div onclick="PopupShow()" class="btn-primary btn">Login</div>
+
+            <!-- Define content -->
+            <div id="popupBottom" class="popover">
+                <div class="arrow"></div>
+                <div class="popover-content">
+                    <button type="button" class="btn btn-default" onclick="LoginFb()"><span class="socicon socicon-facebook"></span> </button>
+                    <button type="button" class="btn btn-default" onclick="LoginGoogle()"><span class="socicon socicon-google"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row main_search">
+        <div class="col-md-2 col-md-offset-1">
+            <h2 class="musr_text">M.U.S.R.</h2>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <input id="searchInput" type="text" class="form-control" placeholder="Search" />
+                <span class="input-group-btn">
+                    <button id="searchButton" class="btn btn-default" type="button">Search</button>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+            <div class="row results_filter">
+                    <div class="col-md-12">
+                        <div class="btn-group btn-group-xs btn-group-justified" id="category_list" role="group">
+                            <a role="button" class="btn btn-default filter_button" filter="">All</a>
+                            <a role="button" class="btn btn-default filter_button" filter="web_result">Web</a>
+                            <a role="button" class="btn btn-default filter_button" filter="img_result">Images</a>
+                            <a role="button" class="btn btn-default filter_button" filter="video_result">Video</a>
+                            <a role="button" class="btn btn-default filter_button" filter="facebook_result">Facebook</a>
+                            <a role="button" class="btn btn-default filter_button" filter="google_result">Google</a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <!-- CREATE CATEGORY -->
+    <div class="row categ_form">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Add category</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label class="control-label" for="category_name">Category Name</label>
+                            <input type="text" class="form-control" placeholder="name" id="category_name" />
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>Search In</label>
+                            <div class="checkbox"><label>
+                                  <input type="checkbox" value="web"> Web
+                            </label></div>
+                            <div class="checkbox"><label>
+                                  <input type="checkbox" value="images"> Images
+                            </label></div>
+                            <div class="checkbox"><label>
+                                  <input type="checkbox" value="video"> Video
+                            </label></div>
+                            <div class="checkbox"><label>
+                                  <input type="checkbox" value="location"> Location
+                            </label></div>
+                            <div class="checkbox"><label>
+                                  <input type="checkbox" value="facebook"> Facebook
+                            </label></div>
+                            <div class="checkbox"><label>
+                                  <input type="checkbox" value="google"> Google+
+                            </label></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="category_submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="categ_add_confirm">Category added!</div>
+
+    <!-- RESULTS -->
+    <div class="row results">
+        <!--<a class="col-md-4 search_result web_result">
+            <h3>Title</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales mi eget interdum ultrices. Ut suscipit dapibus orci, non aliquet libero dictum quis. In tincidunt metus tellus, nec varius enim aliquam vitae. Aenean consequat, ipsum ut lacinia sagittis, tortor lacus pretium neque, at euismod erat eros vel urna. Donec ullamcorper sed orci et iaculis. Cras feugiat, diam non dignissim finibus,</p>
+            <img src="http://getbootstrap.com/favicon.ico" class="favicon"/>
+            <span>site.com</span>
+            <span class="socicon socicon-twitter"></span>
+        </a>
+        <a class="col-md-4 search_result web_result">
+            <h3>Title</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales mi eget interdum ultrices. </p>
+            <img src="http://getbootstrap.com/favicon.ico" class="favicon"/>
+            <span>site.com</span>
+            <span class="socicon socicon-twitter"></span>
+        </a>
+        <div class="col-md-4 search_result img_result">
+            <h3>Title</h3>
+            <img src="images/placeholder.jpg" class="img_result" />
+            <img src="http://getbootstrap.com/favicon.ico" class="favicon"/>
+            <span>site.com</span>
+            <span class="socicon socicon-twitter"></span>
+        </div>
+        <div class="col-md-4 search_result web_result">
+            <h3>Title</h3>
+            <p>In tincidunt metus tellus, nec varius enim aliquam vitae. Aenean consequat, ipsum ut lacinia sagittis, tortor lacus pretium neque, at euismod erat eros vel urna. Donec ullamcorper sed orci et iaculis. Cras feugiat, diam non dignissim finibus,</p>
+            <img src="http://getbootstrap.com/favicon.ico" class="favicon"/>
+            <span>site.com</span>
+            <span class="socicon socicon-twitter"></span>
+        </div>
+        <div class="col-md-4 search_result web_result">
+            <h3>Title</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales mi eget interdum ultrices. Ut suscipit dapibus orci, non aliquet libero dictum quis. In tincidunt metus tellus, nec varius enim aliquam vitae. Aenean consequat, ipsum ut lacinia sagittis, tortor lacus pretium neque, at euismod erat eros vel urna. Donec ullamcorper sed orci et iaculis. Cras feugiat, diam non dignissim finibus,</p>
+            <img src="http://getbootstrap.com/favicon.ico" class="favicon"/>
+            <span>site.com</span>
+            <span class="socicon socicon-twitter"></span>
+        </div>
+        <div class="col-md-4 search_result img_result">
+            <h3>Title</h3>
+            <img src="images/placeholder.jpg" class="img_result" />
+            <img src="http://getbootstrap.com/favicon.ico" class="favicon"/>
+            <span>site.com</span>
+            <span class="socicon socicon-twitter"></span>
+        </div>
+        <div class="col-md-4 search_result video_result">
+            <h3>Title</h3>
+            <iframe class="frame_result" src="//www.youtube.com/embed/Rk59AsFOPyk" frameborder="0" allowfullscreen></iframe>
+            <img src="http://getbootstrap.com/favicon.ico" class="favicon"/>
+            <span>site.com</span>
+            <span class="socicon socicon-twitter"></span>
+        </div> 
+        <div class="col-md-4 search_result">
+            <h3>Title</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales mi eget interdum ultrices. Ut suscipit dapibus orci, non aliquet libero dictum quis. In tincidunt metus tellus, nec varius enim aliquam vitae. Aenean consequat, ipsum ut lacinia sagittis, tortor lacus pretium neque, at euismod erat eros vel urna. Donec ullamcorper sed orci et iaculis. Cras feugiat, diam non dignissim finibus,</p>
+            <img src="http://getbootstrap.com/favicon.ico" class="favicon"/>
+            <span>site.com</span>
+            <span class="socicon socicon-twitter"></span>
+        </div>-->
+    </div>
+    
+
+  </div> <!-- /container full -->
+  <div class="loading_screen">
+      <img src="images/loader.gif" />
+  </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+    <!--?key=AIzaSyDw74l5k5hSWbYW_jIMeV9R6tB_C86yK98-->
+    <script src="dpd.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/preloading.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/script.js"></script>
+
+    <script type="text/javascript">
+          (function() {
+           var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+           po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+         })();
+    </script>
   </body>
 </html>

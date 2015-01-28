@@ -1,0 +1,69 @@
+{
+	"type": "Collection",
+	"properties": {
+		"email": {
+			"name": "email",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "email",
+			"order": 0
+		},
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "name",
+			"order": 1
+		},
+		"facebookId": {
+			"name": "facebookId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "facebookId",
+			"order": 2
+		},
+		"facebookProfilePictureURL": {
+			"name": "facebookProfilePictureURL",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "facebookProfilePictureURL",
+			"order": 3
+		},
+		"facebookTokken": {
+			"name": "facebookTokken",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "facebookTokken",
+			"order": 4
+		},
+		"googleId": {
+			"name": "googleId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "googleId",
+			"order": 5
+		},
+		"googleTokken": {
+			"name": "googleTokken",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "googleTokken",
+			"order": 6
+		},
+		"googleProfilePictureURL": {
+			"name": "googleProfilePictureURL",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "googleProfilePictureURL",
+			"order": 7
+		}
+	}
+}

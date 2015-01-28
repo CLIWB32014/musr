@@ -1,0 +1,166 @@
+
+
+.header {
+    margin-top: 30px;
+}
+
+.user_img {
+    font-size: 60px;
+}
+
+body {
+    margin: 0 10px;
+}
+
+.musr_text {
+    margin: 0;
+    text-align: center;
+}
+
+
+.main_search {
+    margin-top: 30px;
+}
+
+.results {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.search_result {
+    border: 2px solid #cccccc;
+    border-radius: 10px;
+    padding-bottom: 5px;
+    margin: 10px 1%;
+    width: 31%;
+    color: #101010;
+}
+
+.search_result .socicon {
+    float: right;
+}
+
+.search_result img.favicon {
+    width: 16px;
+    margin: -2px 5px 0 0;
+}
+
+.search_result img.img_result {
+    float: left;
+    width: 80%;
+    margin: 0 10% 10px 10%;
+}
+.search_result img.frame_result {
+    float: left;
+    width: 80%;
+    height: 100px;
+    margin: 0 10% 10px 10%;
+}
+
+.categ_form button {
+    margin: 0 15px;
+}
+
+.loading_screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #FFFFFF;
+    z-index: 100;
+}
+
+.loading_screen img {
+    width: 20%;
+    float: left;
+    margin: 15% 0 0 40%;
+}
+
+.categ_form, .results {
+    display: none;
+}
+
+.categ_add_confirm {
+    position: absolute;
+    left: 44%;
+    margin-top: 5px;
+    border: 1px solid #29A300;
+    padding: 2px 10px;
+    color: #168B03;
+    display: none;
+    top: 27%;
+}
+.map {
+    width: 100%;
+    height: 300px;
+    float: left;
+}
+
+.fb_link {
+    float: left;
+    margin: 5px 0;
+    border-bottom: 1px solid #cecece;
+    width: 100%;
+    color: #373737;
+}
+
+.fb_link img {
+    width: 15%;
+    float: left;
+}
+
+.fb_link h2 {
+    width: 80%;
+    float: left;
+    margin: 12px 0 0 5%;
+    font-size: 18px;
+}
+
+.fb_link h4 {
+    width: 100%;
+    float: left;
+    font-weight: 400;
+    font-size: 16px;
+    margin: 4px 0 5px 0;
+}
+
+#popupBottom {
+    top: auto !important;
+    left: auto !important;
+    margin-top: 5px;
+}
+
+#popupBottom .socicon-facebook {
+    font-size: 30px;
+    color: #4862A3;
+}
+
+#popupBottom .socicon-google {
+    font-size: 30px;
+    color: #D11718;
+}
+
+#popupBottom .btn {
+    margin: 3px 0;
+}
+
+a:hover {
+    color: #101010;
+    text-decoration: none;
+}
+
+.el_menu_background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+}
+
+.el_menu {
+    width: 100px;
+    position: absolute;
+    z-index: 6;
+}

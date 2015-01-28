@@ -1,0 +1,77 @@
+{
+	"type": "Collection",
+	"properties": {
+		"userId": {
+			"name": "userId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "userId",
+			"order": 0
+		},
+		"name": {
+			"name": "name",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "name",
+			"order": 1
+		},
+		"web": {
+			"name": "web",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "web",
+			"order": 2
+		},
+		"images": {
+			"name": "images",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "images",
+			"order": 3
+		},
+		"video": {
+			"name": "video",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "video",
+			"order": 4
+		},
+		"location": {
+			"name": "location",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "location",
+			"order": 5
+		},
+		"facebook": {
+			"name": "facebook",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "facebook",
+			"order": 6
+		},
+		"google": {
+			"name": "google",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "google",
+			"order": 7
+		},
+		"onlyOn": {
+			"name": "onlyOn",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "onlyOn",
+			"order": 8
+		}
+	}
+}
