@@ -3,13 +3,17 @@
  */
 var search_count = 0;
 var search_verify = 0;
-var timecache = 1000*60*3;
+var timecache = 1000*60*60*3;
 function search(settings) {
     $('.results .search_result').remove();
     $('.results').hide();
     DestroyArrange();
     search_count=0;
     search_verify=0;
+    loaded.availableTags.push(settings.searchTerm);
+    $( "#searchInput" ).autocomplete({
+          source: loaded.availableTags
+        });
     //Google Web
     var query = {"userID":userDeploydId,"type":"googleGwebSearch","search":settings.searchTerm,"timestamp":{"$gt": Date.now()-timecache}};
     dpd.cache.get(query, function (result) {
@@ -62,9 +66,11 @@ function search(settings) {
         googlePlusSearch(settings);
         }
     });
-    //googlePlusSearch(settings);
-   // googleMapsSearch(settings);
-   // facebookSearch(settings);
+    //Google Maps
+    googleMapsSearch(settings);
+    //Facebook
+   facebookSearch(settings);
+
     finishsearch();
 }
 
@@ -204,6 +210,8 @@ function googleMapsSearch(settings) {
 
 }
 
+
+
 function googlePlusSearch(settings) {
 
     var request = gapi.client.plus.activities.search({
@@ -231,6 +239,64 @@ function googlePlusSearchResults(response) {
         search_count++;
 }
 
+function facebookPlaces(response) {
+
+            var title;
+            var content;
+            var url = '';
+            var source = 'facebook';
+
+            var places = response;
+
+            title = 'Places';
+            content = places;
+
+            createResult('facebook_place', title, content, url, source);
+
+}
+
+function facebookPersons(response) {
+    var title;
+    var content;
+    var url = '';
+    var source = 'facebook';
+
+    var users = response;
+
+    title = 'Persons';
+    content = users;
+
+    createResult('facebook_user', title, content, url, source);
+}
+
+function facebookEvents(response) {
+    var title;
+    var content;
+    var url = '';
+    var source = 'facebook';
+
+    var events = response;
+
+    title = 'Events';
+    content = events;
+
+    createResult('facebook_event', title, content, url, source);
+}
+
+function facebookPages(response) {
+    var title;
+    var content;
+    var url = '';
+    var source = 'facebook';
+
+    var pages = response;
+
+    title = 'Pages';
+    content = pages;
+
+    createResult('facebook_page', title, content, url, source);
+}
+
 function facebookSearch(settings) {
 
     var searchUrl = '/search?';
@@ -241,28 +307,71 @@ function facebookSearch(settings) {
     var searchUsers = '&type=user';
     var searchLimit = '&limit=5';
     var accessToken = '&accessToken=' + facebookAccessToken;
-
-    FB.api(searchUrl + searchQuery + searchPlaces + accessToken + searchLimit, function (response) {
-
-        console.log(response);
-
-        if (response && !response.error) {
-
-            var title;
-            var content;
-            var url = '';
-            var source = 'facebook';
-
-            var places = response.data;
-
-            title = 'Places';
-            content = places;
-
-            createResult('facebook_place', title, content, url, source);
-
+     //Facebook Places
+    var query = {"userID":userDeploydId,"type":"facebookPlaces","search":settings.searchTerm,"timestamp":{"$gt": Date.now()-timecache}};
+    dpd.cache.get(query, function (result) {
+      if (result.length>0)
+        {
+        facebookPlaces(result[0].data);
         }
+        else
+        FB.api(searchUrl + searchQuery + searchPlaces + accessToken + searchLimit, function (response) {
+             if (response && !response.error) {
+                dpd.cache.post({"userID":userDeploydId,"type":"facebookPlaces","search":settings.searchTerm,"data":response.data,"timestamp":Date.now()}, function(result, err) {});
+                facebookPlaces(response.data);
+             }
+        });
     });
 
+     //Facebook Persons
+    var query = {"userID":userDeploydId,"type":"facebookPersons","search":settings.searchTerm,"timestamp":{"$gt": Date.now()-timecache}};
+    dpd.cache.get(query, function (result) {
+      if (result.length>0)
+        {
+        facebookPersons(result[0].data);
+        }
+        else
+        FB.api(searchUrl + searchQuery + searchUsers + accessToken + searchLimit, function (response) {
+             if (response && !response.error) {
+                dpd.cache.post({"userID":userDeploydId,"type":"facebookPersons","search":settings.searchTerm,"data":response.data,"timestamp":Date.now()}, function(result, err) {});
+                facebookPersons(response.data);
+             }
+        });
+    });
+     //Facebook Events
+    var query = {"userID":userDeploydId,"type":"facebookEvents","search":settings.searchTerm,"timestamp":{"$gt": Date.now()-timecache}};
+    dpd.cache.get(query, function (result) {
+      if (result.length>0)
+        {
+        facebookEvents(result[0].data);
+        }
+        else
+        FB.api(searchUrl + searchQuery + searchEvents + accessToken + searchLimit, function (response) {
+             if (response && !response.error) {
+                dpd.cache.post({"userID":userDeploydId,"type":"facebookEvents","search":settings.searchTerm,"data":response.data,"timestamp":Date.now()}, function(result, err) {});
+                facebookEvents(response.data);
+             }
+        });
+    });
+     //Facebook Pages
+    var query = {"userID":userDeploydId,"type":"facebookPages","search":settings.searchTerm,"timestamp":{"$gt": Date.now()-timecache}};
+    dpd.cache.get(query, function (result) {
+      if (result.length>0)
+        {
+        facebookPages(result[0].data);
+        search_count++;
+        }
+        else
+        FB.api(searchUrl + searchQuery + searchPages + accessToken + searchLimit, function (response) {
+             if (response && !response.error) {
+                dpd.cache.post({"userID":userDeploydId,"type":"facebookPages","search":settings.searchTerm,"data":response.data,"timestamp":Date.now()}, function(result, err) {});
+                facebookPages(response.data);
+                search_count++;
+             }
+        });
+
+    });
+/*
     FB.api(searchUrl + searchQuery + searchUsers + accessToken + searchLimit, function (response) {
 
         console.log(response);
@@ -323,7 +432,7 @@ function facebookSearch(settings) {
             createResult('facebook_page', title, content, url, source);
         }
             search_count++;
-    });
+    });*/
 
 }
 

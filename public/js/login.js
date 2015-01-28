@@ -76,6 +76,8 @@ function RegisterUserFb(response) {
                 dpd.users.put(userDeploydId, {"facebookProfilePictureURL" : response.data.url}, function(result, err) {
                     if(err)
                         return console.log(err);
+                        //RELOAD AFTER FACEBOOK LOGIN
+                        window.location.reload();
                 });
             }
         }
@@ -134,6 +136,8 @@ function RegisterUserG(response) {
                         return console.log(err);
                     userDeploydId = result.id;
                     setCookie('user',userDeploydId,5);
+                        //RELOAD AFTER GOOGLE LOGIN
+                        window.location.reload();
                 });
             } else{
                 userDeploydId = result[0].id;
@@ -143,6 +147,8 @@ function RegisterUserG(response) {
                         "googleProfilePictureURL":resp['result']['image']['url']}, function(result, err) {
                     if(err)
                         return console.log(err);
+                        //RELOAD AFTER GOOGLE LOGIN
+                        window.location.reload();
                 });
             }
 

@@ -15,6 +15,12 @@ $(document).ready(function() {
     search(configs);
 
   });
+  $("#searchInput").keyup(function(event){
+    if(event.keyCode == 13){
+        configs.searchTerm = $('#searchInput').val();
+        search(configs);
+        }
+    });
 
   $('.results_filter a.filter_button').bind('click', FilterClick);
   $('#category_submit').bind('click', CreateCategory);
@@ -184,7 +190,11 @@ function createResult(type,title,content,url,source) {
     $(div).addClass(type+'_result');
     $(div).append('<img src="https://plus.google.com/_/favicon?domain='+url+'" alt="'+title+'" class="favicon" />');
     var p = url.lastIndexOf('.');
-    url = (url.substr( (url.indexOf('http://')!=-1?url.indexOf('/')+2:0) ));
+    if (url.indexOf('http://')!=-1)
+        url = (url.substr( (url.indexOf('http://')!=-1?url.indexOf('/')+2:0) ));
+        else
+        if (url.indexOf('https://')!=-1)
+        url = (url.substr( (url.indexOf('https://')!=-1?url.indexOf('/')+2:0) ));
     url = url.substr(0,(url.indexOf('/')!=-1?url.indexOf('/'):url.length));//get only domain
     $(div).append('<span>'+url+'</span>');
     if (source!='')

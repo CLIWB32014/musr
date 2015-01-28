@@ -4,6 +4,7 @@
 var loaded = new Object();
 loaded.login = 0;
 loaded.categories = Array();
+loaded.availableTags = Array();
 
 function PreloadVerify() {
     var ok=1;
@@ -15,6 +16,29 @@ function PreloadVerify() {
         }
         else
         window.setTimeout(PreloadVerify,300);
+}
+
+function LoadAvailableTags() {
+    var query = {"userID":userDeploydId,"timestamp":{"$gt": Date.now()-timecache}};
+    dpd.cache.get(query, function (result) {
+      if (result.length>0)
+        {
+        for (var i=0; i<result.length; i++)
+            {
+            var searchKey = result[i].search;
+            var ok=0;
+            for (var j=0; j<loaded.availableTags.length; j++)
+                if (loaded.availableTags[j]==searchKey)
+                    ok=1;
+            if (ok==0)
+                loaded.availableTags.push(searchKey);
+            }
+        $( "#searchInput" ).autocomplete({
+          source: loaded.availableTags
+        });
+        }
+    });
+
 }
 
 function LoginVerify() {
@@ -46,6 +70,7 @@ function LoginVerify() {
             $('.user_img').html('<img src="'+result.googleProfilePictureURL+'" />');
             }
             LoadCategories();
+            LoadAvailableTags();
         });
 }
 
